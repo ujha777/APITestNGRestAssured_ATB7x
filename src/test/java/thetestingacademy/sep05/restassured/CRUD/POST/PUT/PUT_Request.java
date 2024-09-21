@@ -66,7 +66,7 @@ public class PUT_Request {
         //Step3-Token ID and Booking use in PUT request
         String payloadPutRequest = "{\n" +
                 "    \"firstname\" : \"Shubham\",\n" +
-                "    \"lastname\" : \"Brown\",\n" +
+                "    \"lastname\" : \"Singh\",\n" +
                 "    \"totalprice\" : 111,\n" +
                 "    \"depositpaid\" : true,\n" +
                 "    \"bookingdates\" : {\n" +
@@ -92,6 +92,16 @@ public class PUT_Request {
         response=requestSpecification.when().delete();
         validatableResponse=response.then().log().all();
         validatableResponse.statusCode(201);
+
+
+        //After delete -->GET request that it doesn’t exist. (404)
+        requestSpecification.basePath("booking/"+bookingID);
+        response=RestAssured.given().spec(requestSpecification)
+                .when().get();
+        validatableResponse= response.then().log().all();
+        validatableResponse.statusCode(404);
+
+
 
 
 
